@@ -6,6 +6,9 @@ GEM
     concurrent-ruby (1.1.5)
     concurrent-ruby-edge (0.5.0)
       concurrent-ruby (~> 1.1.5)
+    dotenv (2.7.5)
+    down (4.8.1)
+      addressable (~> 2.5)
     dry-configurable (0.8.3)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.4, >= 0.4.7)
@@ -80,6 +83,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
+  down
   ringcentral-sdk
   sinatra
 
