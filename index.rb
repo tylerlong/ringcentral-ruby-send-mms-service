@@ -1,4 +1,6 @@
-require 'dotenv/load'
+require 'dotenv'
+Dotenv.overload
+
 require 'sinatra'
 require 'down'
 require 'ringcentral'
@@ -21,7 +23,8 @@ post '/' do
     file_type ||= tempfile.content_type
 
     rc = RingCentral.new(RINGCENTRAL_CLIENT_ID, RINGCENTRAL_CLIENT_SECRET, RINGCENTRAL_SERVER_URL)
-    rc.authorize(username: RINGCENTRAL_USERNAME, extension: RINGCENTRAL_EXTENSION, password: RINGCENTRAL_PASSWORD)
+    r = rc.authorize(username: RINGCENTRAL_USERNAME, extension: RINGCENTRAL_EXTENSION, password: RINGCENTRAL_PASSWORD)
+    puts r
     r = rc.post('/restapi/v1.0/account/~/extension/~/sms',
         payload: {
             to: [{ phoneNumber: receiver }],
@@ -32,6 +35,7 @@ post '/' do
             [tempfile.path, file_type]
         ]
     )
+    puts r.body
     rc.revoke()
     body 'OK'
 end
